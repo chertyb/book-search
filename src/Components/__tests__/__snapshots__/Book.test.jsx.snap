@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Book component renders without crashing 1`] = `
+<div>
+  <div
+    class="book"
+  >
+    <img
+      alt="thumbnail"
+      src=""
+    />
+    <p
+      title="Title"
+    >
+      Title: 
+      
+    </p>
+    <p
+      title="Authors"
+    >
+      Authors: 
+      
+    </p>
+    <p
+      title="Categories"
+    >
+      Categories: 
+      
+    </p>
+    <p
+      title="Description"
+    >
+      Description: 
+      
+    </p>
+  </div>
+</div>
+`;

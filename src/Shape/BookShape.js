@@ -9,4 +9,13 @@ const BookShape = PropTypes.shape({
   thumbnail: PropTypes.string,
 });
 
+export const defaultBookShape = {
+  id: '',
+  title: '',
+  authors: '',
+  categories: '',
+  description: '',
+  thumbnail: '',
+};
+
 export default BookShape;

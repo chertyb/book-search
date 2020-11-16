@@ -7,8 +7,13 @@ const Input = (props) => {
 };
 
 Input.propTypes = {
-  value: PropTypes.string.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  handleInputChange: PropTypes.func,
+};
+
+Input.defaultProps = {
+  value: '',
+  handleInputChange: () => {},
 };
 
 export default Input;

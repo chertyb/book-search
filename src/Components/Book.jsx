@@ -1,28 +1,25 @@
 import React from 'react';
-import BookShape from '../Shape/BookShape';
+import BookShape, { defaultBookShape } from '../Shape/BookShape';
 
-const BookComponent = (props) => {
+const Book = (props) => {
   const { data } = props;
 
-  if (!data) {
-    return null;
-  }
   return (
     <div className="book">
       <img src={data.thumbnail} alt="thumbnail" />
-      <p>
+      <p title="Title">
         {'Title: '}
         {data.title}
       </p>
-      <p>
+      <p title="Authors">
         {'Authors: '}
         {data.authors}
       </p>
-      <p>
+      <p title="Categories">
         {'Categories: '}
         {data.categories}
       </p>
-      <p>
+      <p title="Description">
         {'Description: '}
         {data.description}
       </p>
@@ -30,8 +27,12 @@ const BookComponent = (props) => {
   );
 };
 
-BookComponent.propTypes = {
-  data: BookShape.isRequired,
+Book.propTypes = {
+  data: BookShape,
 };
 
-export default BookComponent;
+Book.defaultProps = {
+  data: defaultBookShape,
+};
+
+export default Book;

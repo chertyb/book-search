@@ -7,8 +7,13 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
-  text: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  text: PropTypes.string,
+  handleClick: PropTypes.func,
+};
+
+Button.defaultProps = {
+  text: '',
+  handleClick: () => {},
 };
 
 export default Button;

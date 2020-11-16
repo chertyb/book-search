@@ -1,9 +1,9 @@
 import React from 'react';
 import './Home.css';
-import InputComponent from '../Components/InputComponent';
-import ButtonComponent from '../Components/ButtonComponent';
-import MessageComponent from '../Components/MessageComponent';
-import BookDisplayComponent from '../Components/BookDisplayComponent';
+import Input from '../Components/Input';
+import Button from '../Components/Button';
+import Message from '../Components/Message';
+import BookDisplay from '../Components/BookDisplay';
 import fetchBooks, { maxResults, formatBooksfromAPI } from '../Utils/Books';
 
 class Home extends React.Component {
@@ -62,13 +62,13 @@ class Home extends React.Component {
     return (
       <div>
         <h1>Book Search App</h1>
-        <InputComponent value={searchInput} handleInputChange={this.handleSearchInput} />
-        <ButtonComponent text="Search" handleClick={this.handleSearchButton} />
+        <Input value={searchInput} handleInputChange={this.handleSearchInput} />
+        <Button text="Search" handleClick={this.handleSearchButton} />
         {isLoading
-          && <MessageComponent message="Loading..." />}
+          && <Message message="Loading..." />}
         {error
-          && <MessageComponent message={error} />}
-        <BookDisplayComponent books={books} loadMore={this.searchBooks} totalBooks={totalBooks} />
+          && <Message message={error} />}
+        <BookDisplay books={books} loadMore={this.searchBooks} totalBooks={totalBooks} />
       </div>
     );
   }
