@@ -3,7 +3,7 @@ import Input from './Input';
 import Button from './Button';
 import Message from './Message';
 import BookDisplay from './BookDisplay';
-import fetchBooks, { maxResults, removeDuplicates, formatBooksfromAPI } from '../Utils/Books';
+import fetchBooks, { removeDuplicates, formatBooksfromAPI } from '../Utils/Books';
 
 class Home extends React.Component {
   constructor() {
@@ -26,10 +26,10 @@ class Home extends React.Component {
     if (searchInput === '') {
       this.setState({ error: 'Please enter a query', books: [] });
     } else {
-      this.setState({ isLoading: true, error: null });
       // if new search, empty display so index 0 and empty books
       const newIndex = isNewSearch ? 0 : currentIndex;
       const currentBooks = newIndex ? books : [];
+      this.setState({ isLoading: true, error: null, books: currentBooks });
 
       fetchBooks(searchInput, currentIndex)
         .then((result) => {
@@ -41,7 +41,7 @@ class Home extends React.Component {
           this.setState({
             books: filteredBooks,
             isLoading: false,
-            currentIndex: currentIndex + maxResults,
+            currentIndex: newIndex + nextBooks.length,
             totalBooks,
           });
         })
