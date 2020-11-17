@@ -1,5 +1,5 @@
 const baseUrl = 'https://www.googleapis.com/books/v1';
-export const maxResults = 10;
+export const maxResults = 40;
 
 export function formatBooksfromAPI(books) {
   if (!books) {
@@ -12,23 +12,23 @@ export function formatBooksfromAPI(books) {
     authors: book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : errorMsg,
     categories: book.volumeInfo.categories ? book.volumeInfo.categories.join(', ') : errorMsg,
     description: book.volumeInfo.description ? book.volumeInfo.description : errorMsg,
-    thumbnail: book.volumeInfo.imageLinks.thumbnail ? book.volumeInfo.imageLinks.thumbnail : '',
+    thumbnail: book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail ? book.volumeInfo.imageLinks.thumbnail : '',
   }));
   return formattedBooks;
 }
 
-// result.totalItems
+async function fetchBooks(searchInput, startIndex) {
+  try {
+    const response = await fetch(`${baseUrl}/volumes?q=${searchInput}&maxResults=${maxResults}&startIndex=${startIndex}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    throw new Error('Something went wrong...');
+  }
+}
 
-function fetchBooks(searchInput, startIndex) {
-  return fetch(`${baseUrl}/volumes?q=${searchInput}&maxResults=${maxResults}&startIndex=${startIndex}`)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error('Something went wrong...');
-    })
-    // .then((result) => console.log(result));
-    .then((result) => (result || undefined));
+export function removeDuplicates(books) {
+  return [...new Map(books.map((book) => [book.id, book])).values()];
 }
 
 export default fetchBooks;

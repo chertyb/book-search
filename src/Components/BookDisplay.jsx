@@ -7,8 +7,8 @@ const BookDisplay = (props) => {
   const { books, totalBooks, loadMore } = props;
 
   const handleScroll = (e) => {
-    const divBottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-    if (divBottom && books.length < totalBooks) {
+    const reachedBottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    if (reachedBottom && books.length < totalBooks) {
       loadMore(false);
     }
   };

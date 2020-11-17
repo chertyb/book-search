@@ -14,11 +14,11 @@ describe('Book component', () => {
 
   it('should display default props value', () => {
     const wrapper = shallow(<Book />);
-    expect(wrapper.find('p[title="Title"]').text()).toEqual(`Title: ${defaultBookShape.id}`);
+    expect(wrapper.find('p[title="Title"]').text()).toEqual(`Title: ${defaultBookShape.title}`);
     expect(wrapper.find('p[title="Authors"]').text()).toEqual(`Authors: ${defaultBookShape.authors}`);
     expect(wrapper.find('p[title="Categories"]').text()).toEqual(`Categories: ${defaultBookShape.categories}`);
     expect(wrapper.find('p[title="Description"]').text()).toEqual(`Description: ${defaultBookShape.description}`);
-    expect(wrapper.find('img').prop('src')).toEqual(defaultBookShape.id);
+    expect(wrapper.find('img').prop('src')).toEqual(defaultBookShape.thumbnail);
   });
 
   it('should display custom props value', () => {

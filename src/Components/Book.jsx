@@ -4,6 +4,9 @@ import BookShape, { defaultBookShape } from '../Shape/BookShape';
 const Book = (props) => {
   const { data } = props;
 
+  if (!data) {
+    return null;
+  }
   return (
     <div className="book">
       <img src={data.thumbnail} alt="thumbnail" />

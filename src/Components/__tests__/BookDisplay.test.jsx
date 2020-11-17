@@ -18,4 +18,29 @@ describe('BookDisplay component', () => {
     const wrapper = shallow(<BookDisplay books={books} totalBooks={books.length} />);
     expect(wrapper.find(Book).length).toEqual(books.length);
   });
+
+  it('should load more books when reaching display bottom', () => {
+    const loadMore = jest.fn();
+    const books = [defaultBookShape, defaultBookShape, defaultBookShape];
+    const wrapper = shallow(<BookDisplay
+      books={books}
+      totalBooks={books.length * 2}
+      loadMore={loadMore}
+    />);
+    const mockEvent = { target: { scrollTop: 100, scrollHeight: 500, clientHeight: 400 } };
+    wrapper.find('div').simulate('scroll', mockEvent);
+    expect(loadMore).toHaveBeenCalled();
+  });
+  it('should not load more books when reaching total books', () => {
+    const loadMore = jest.fn();
+    const books = [defaultBookShape, defaultBookShape, defaultBookShape];
+    const wrapper = shallow(<BookDisplay
+      books={books}
+      totalBooks={books.length}
+      loadMore={loadMore}
+    />);
+    const mockEvent = { target: { scrollTop: 500, scrollHeight: 500, clientHeight: 400 } };
+    wrapper.find('div').simulate('scroll', mockEvent);
+    expect(loadMore).not.toHaveBeenCalled();
+  });
 });

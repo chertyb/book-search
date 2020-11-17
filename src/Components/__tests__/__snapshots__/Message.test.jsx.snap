@@ -2,6 +2,8 @@
 
 exports[`Message component renders without crashing 1`] = `
 <div>
-  <p />
+  <p
+    class=""
+  />
 </div>
 `;

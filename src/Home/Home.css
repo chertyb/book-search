@@ -1,8 +1,0 @@
-#book-display {
-  width: 80%;
-  height: 500px;
-  border: 1px solid black;
-  margin: auto;
-  margin-top: 30px;
-  overflow-y: auto;
-}

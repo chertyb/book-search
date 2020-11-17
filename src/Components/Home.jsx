@@ -1,10 +1,9 @@
 import React from 'react';
-import './Home.css';
-import Input from '../Components/Input';
-import Button from '../Components/Button';
-import Message from '../Components/Message';
-import BookDisplay from '../Components/BookDisplay';
-import fetchBooks, { maxResults, formatBooksfromAPI } from '../Utils/Books';
+import Input from './Input';
+import Button from './Button';
+import Message from './Message';
+import BookDisplay from './BookDisplay';
+import fetchBooks, { maxResults, removeDuplicates, formatBooksfromAPI } from '../Utils/Books';
 
 class Home extends React.Component {
   constructor() {
@@ -22,9 +21,9 @@ class Home extends React.Component {
     this.searchBooks = this.searchBooks.bind(this);
   }
 
-  searchBooks(isNewSearch) {
+  async searchBooks(isNewSearch) {
     const { currentIndex, books, searchInput } = this.state;
-    if (!searchInput) {
+    if (searchInput === '') {
       this.setState({ error: 'Please enter a query', books: [] });
     } else {
       this.setState({ isLoading: true, error: null });
@@ -36,8 +35,11 @@ class Home extends React.Component {
         .then((result) => {
           const totalBooks = result.totalItems ? result.totalItems : 0;
           const nextBooks = result.items ? formatBooksfromAPI(result.items) : [];
+          // Google Book API does not always return same list with same request
+          // so we remove duplicates
+          const filteredBooks = removeDuplicates([...currentBooks, ...nextBooks]);
           this.setState({
-            books: [...currentBooks, ...nextBooks],
+            books: filteredBooks,
             isLoading: false,
             currentIndex: currentIndex + maxResults,
             totalBooks,
@@ -65,9 +67,9 @@ class Home extends React.Component {
         <Input value={searchInput} handleInputChange={this.handleSearchInput} />
         <Button text="Search" handleClick={this.handleSearchButton} />
         {isLoading
-          && <Message message="Loading..." />}
+          && <Message message="Loading..." type="loading" />}
         {error
-          && <Message message={error} />}
+          && <Message message={error} type="error" />}
         <BookDisplay books={books} loadMore={this.searchBooks} totalBooks={totalBooks} />
       </div>
     );
